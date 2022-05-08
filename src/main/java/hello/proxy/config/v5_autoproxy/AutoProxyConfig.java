@@ -1,4 +1,4 @@
-package hello.proxy.config.v4_postprocessor.postprocessor;
+package hello.proxy.config.v5_autoproxy;
 
 import hello.proxy.config.AppV1Config;
 import hello.proxy.config.AppV2Config;
@@ -12,24 +12,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-@Slf4j
 @Configuration
 @Import({AppV1Config.class, AppV2Config.class})
-public class BeanPostProcessorConfig {
+public class AutoProxyConfig {
 
     @Bean
-    public PackageLogTracePostProcessor logTracePostProcessor(LogTrace logTrace) {
-        return new PackageLogTracePostProcessor("hello.proxy.app", getAdvisor(logTrace));
-    }
-
-    private Advisor getAdvisor(LogTrace logTrace) {
+    public Advisor advisor1(LogTrace logTrace) {
         // pointcut
         NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
         pointcut.setMappedNames("request*", "order*", "save*");
         // advice
         LogTraceAdvice logTraceAdvice = new LogTraceAdvice(logTrace);
         return new DefaultPointcutAdvisor(pointcut, logTraceAdvice);
-
     }
+
 
 }
