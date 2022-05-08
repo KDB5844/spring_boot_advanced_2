@@ -10,6 +10,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
